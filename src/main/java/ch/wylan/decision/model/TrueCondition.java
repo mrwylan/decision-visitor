@@ -1,6 +1,6 @@
 package ch.wylan.decision.model;
 
-public class AlwaysTrueCondition<E> extends Condition<E> {
+public class TrueCondition<E> extends Condition<E> {
 
 	@Override
 	public Boolean execute(E input) {

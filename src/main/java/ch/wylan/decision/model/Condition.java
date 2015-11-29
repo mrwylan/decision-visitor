@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Condition<E> extends Step<E, Boolean> {
+public class Condition<E> {
+	
+	public Boolean execute(E input){
+		return false;
+	}
 	
 	public <T> T accept(IConditionVisitor<E, T> visitor){
 		return visitor.visitCondition(this);
 	};
 
-	public boolean evaluate( E input){
-		return this.execute(input);
-	}
-	
 	public Condition<E> and (Condition<E> condition){
 		return new AndCondition<E>(Arrays.asList(this, condition));
 	}
@@ -35,6 +35,5 @@ public abstract class Condition<E> extends Step<E, Boolean> {
 		orConditions.addAll(conditions);
 		return new OrCondition<E>(orConditions);
 	}
-
 			
 }

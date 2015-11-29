@@ -4,9 +4,18 @@ import java.util.List;
 
 public class OrCondition<E> extends CompositionCondition<E> {
 
-	public OrCondition(List<? extends Condition<E>> conditions) {
+	public OrCondition(List<Condition<E>> conditions) {
 		super(conditions);
 	}
+	
+	
+
+	@Override
+	public <T> T accept(IConditionVisitor<E, T> visitor) {
+		return visitor.visitOrCondition(this);
+	}
+
+
 
 	@Override
 	public Boolean execute(E input) {

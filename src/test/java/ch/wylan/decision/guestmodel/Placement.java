@@ -1,8 +1,6 @@
 package ch.wylan.decision.guestmodel;
 
-import ch.wylan.decision.model.Decision;
-
-public class Placement extends Decision<PartyRegistrationOrder> {
+public class Placement {
 	
 	private final Guest guest;
 	private final Lounge lounge;
@@ -22,12 +20,6 @@ public class Placement extends Decision<PartyRegistrationOrder> {
 
 	public boolean isValid() {
 		return guest !=null && lounge != null;
-	}
-
-	@Override
-	public PartyRegistrationOrder execute(PartyRegistrationOrder input) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

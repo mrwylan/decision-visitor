@@ -12,20 +12,19 @@ public abstract class Rule<E> extends Condition<E> {
 		this.alternative = alternative;
 	}
 	public Rule(Condition<E> condition, Decision<E> decision) {
-		this( condition, decision,new AlwaysFalseCondition<>());
+		this( condition, decision,new Condition<>());
 	}
 	
 	public Rule(Decision<E> decision){
-		this( new AlwaysTrueCondition<>(), decision,new AlwaysFalseCondition<>());
+		this( new TrueCondition<>(), decision,new Condition<>());
 	}
 
 	@Override
 	public Boolean execute(E input) {
-		if(condition.evaluate(input)){
-			decision.apply(input);
-			return true;
+		if(condition.execute(input)){
+			return decision.execute(input);
 		}
-		return alternative.evaluate(input);
+		return alternative.execute(input);
 	}
 
 	public Condition<E> getCondition() {
@@ -39,7 +38,4 @@ public abstract class Rule<E> extends Condition<E> {
 	public Condition<E> getAlternative() {
 		return alternative;
 	}
-	
-	
-	
 }

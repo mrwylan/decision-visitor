@@ -2,28 +2,15 @@ package ch.wylan.decision.model;
 
 import java.util.List;
 
-public class CompositionDecision<E> extends Decision<E> {
-	
-	protected final List<? extends Decision<E>> decisions;
+public class CompositionDecision<E> extends CompositionCondition<E> {
 
-	public CompositionDecision(List<? extends Decision<E>> decisions) {
-		this.decisions = decisions;
-	}
-
-	public List<? extends Decision<E>> getDecisions() {
-		return decisions;
+	public CompositionDecision(List<Condition<E>> conditions) {
+		super(conditions);
 	}
 
 	@Override
-	public E execute(E input) {
-		for (Decision<E> decision : decisions) {
-			input = internalExecute(decision, input);
-		}
-		return input;
-	}
-	
-	public E internalExecute(Decision<E> decision, E input){
-		return decision.apply(input);
+	public <T> T accept(IConditionVisitor<E, T> visitor) {
+		return visitor.visitCompositionDecision(this);
 	}
 	
 }

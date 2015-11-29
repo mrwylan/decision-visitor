@@ -2,14 +2,19 @@ package ch.wylan.decision.model;
 
 import java.util.Arrays;
 
-public abstract class Decision<E> extends Step<E, E> {
+public class Decision<E> extends Condition<E> {
 
-	public E apply(E input) {
-		return input;
+	public CompositionDecision<E> also(Condition<E> decision){
+		return new CompositionDecision<E>(Arrays.asList(this, decision));
 	}
 	
-	public Decision<E> also(Decision<E> decision){
-		return new CompositionDecision<>(Arrays.asList(this, decision));
+	public <T> T accept(IConditionVisitor<E, T> visitor){
+		return visitor.visitDecision(this);
 	}
+
+	@Override
+	public Boolean execute(E input) {
+		return false;
+	};
 	
 }
