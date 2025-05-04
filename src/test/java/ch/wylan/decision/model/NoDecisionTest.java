@@ -1,9 +1,8 @@
 package ch.wylan.decision.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class NoDecisionTest {
 	
@@ -16,7 +15,7 @@ public class NoDecisionTest {
 		
 		assertFalse(result);
 		
-		result = decision.also(new Decision<String>()).execute(input);
+		result = decision.also(new Decision<>()).execute(input);
 		assertFalse(result);
 		
 	}

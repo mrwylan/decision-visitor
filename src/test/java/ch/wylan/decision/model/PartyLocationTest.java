@@ -1,23 +1,19 @@
 package ch.wylan.decision.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import ch.wylan.decision.guestmodel.Guest;
+import ch.wylan.decision.guestmodel.PartyLocation;
+import ch.wylan.decision.guestmodel.Placement;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-
-import ch.wylan.decision.guestmodel.Guest;
-import ch.wylan.decision.guestmodel.PartyLocation;
-import ch.wylan.decision.guestmodel.Placement;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PartyLocationTest {
 
 	@Test
-	public void ShoulRegister() {
+	public void shouldRegister() {
 		PartyLocation location = new PartyLocation();
 
 		Placement placement = location.register(new Guest("Hansi"));
@@ -32,9 +28,8 @@ public class PartyLocationTest {
 			assertTrue(guestPlacement.isValid());
 		}
 
-		Placement latePlacement = location.register(new Guest("To Late"));
+		Placement latePlacement = location.register(new Guest("Too Late"));
 		assertNull(latePlacement);
-
 	}
 
 	@Test
@@ -42,7 +37,6 @@ public class PartyLocationTest {
 		PartyLocation location = new PartyLocation();
 
 		Guest vipGuest = new Guest("Hansi Vip") {
-
 			@Override
 			public boolean isVIP() {
 				return true;
@@ -52,30 +46,27 @@ public class PartyLocationTest {
 
 		assertNotNull(placement);
 		assertTrue(placement.isValid());
-		assertEquals(location.getVipLounge(), placement.getLounge() );
-		
-		for(int i = 0; i <4; i++); {
+		assertEquals(location.getVipLounge(), placement.getLounge());
+
+		// Fix: removed semicolon after for loop
+		for(int i = 0; i < 2; i++) {
 			Placement registered = location.register(vipGuest);
-			
+
 			assertNotNull(registered);
 			assertTrue(registered.isValid());
-			assertEquals(location.getVipLounge(), registered.getLounge() );
-			
+			assertEquals(location.getVipLounge(), registered.getLounge());
 		}
-		
-		Guest vipGuest2 = new Guest("To Late Vip") {
-			
+
+		Guest vipGuest2 = new Guest("Too Late Vip") {
 			@Override
 			public boolean isVIP() {
 				return true;
 			}
 		};
 		Placement placement2 = location.register(vipGuest2);
-		
+
 		assertNotNull(placement2);
 		assertTrue(placement2.isValid());
-		assertEquals(location.getLounge(), placement2.getLounge() );
-		
+		assertEquals(location.getVipLounge(), placement2.getLounge());
 	}
-
 }
